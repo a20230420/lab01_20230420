@@ -3,9 +3,33 @@
 >
 <head>
   <meta charset="UTF-8">
-  <title>Vista Principal</title>
+  <title>Crear pedido</title>
 </head>
 <body>
+<h1>Registrar pedido</h1>
+<form method="POST" action="/order/save">
+
+  <label>Nombre del cliente:</label>
+  <input type="text" name="customerName"><br><br>
+
+  <label>Tipo de servicio</label>
+  <select name = "typeService">
+    <option value="PARA_LLEVAR">Para llevar</option>
+    <option value="EN_MESA">En mesa</option>
+  </select><br><br>
+
+  <h3>Menu</h3>
+  <div th:each="d : ${menu}">
+    <input type="checkbox" name="dishes"
+           th:value="${d}">
+    <span th:text="${d.name}"></span>
+    <br>
+  </div>
+
+  <br>
+  <button type="submit">Enviar</button>
+</form>
+<p th:if="${error}" th:text="${error}"></p>
 
 </body>
 </html>

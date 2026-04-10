@@ -51,7 +51,13 @@ public class HomeController {
         orders.add(order);
         model.addAttribute("orders", orders);
 
-        return "form";
+        return "reporte";
+    }
+
+    @GetMapping("/history")
+    public String history(Model model) {
+        model.addAttribute("orders", orders);
+        return "history";
     }
 
 }
