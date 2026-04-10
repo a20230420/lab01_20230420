@@ -23,4 +23,13 @@ public class Dish {
     public void setPrepTime(int prepTime) {
         this.prepTime = prepTime;
     }
+    public Dish(){
+
+    }
+
+    public Dish(String dishName, double price, int prepTime) {
+        this.dishName = dishName;
+        this.price = price;
+        this.prepTime = prepTime;
+    }
 }

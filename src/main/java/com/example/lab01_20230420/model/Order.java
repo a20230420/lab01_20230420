@@ -9,6 +9,15 @@ public class Order {
     private List<Dish> dishes;
     private int totalTime;
 
+    public Order(){
+
+    }
+    public Order(String customerName, String typeService, List<Dish> dishes, int totalTime) {
+        this.customerName = customerName;
+        this.typeService = typeService;
+        this.dishes = dishes;
+        this.totalTime = totalTime;
+    }
     public String getCustomerName() {
         return customerName;
     }
