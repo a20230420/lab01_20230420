@@ -17,19 +17,41 @@ public class HomeController {
     private List<Dish> menu = new ArrayList<>();
     private List<Order> orders = new ArrayList<>();
 
-
-    @GetMapping("/form")
-    public String mostrarFormulario() {
-        return "page";
+    public OrderController(){
+        menu.add(new Dish("Ensalada Cesar", 12.5, 10));
+        menu.add(new Dish("Sopa de Verduras", 9.0, 8));
+        menu.add(new Dish("Lomo Saltado", 25.0, 20));
+        menu.add(new Dish("ArrozChaufa", 18.5, 15));
+        menu.add(new Dish("Limonada", 6.0, 3));
     }
 
-    @PostMapping("/form/guardar")
-    public String guardarPedido(Order customer, Model model) {
+    //Mostraremos el formulario
+    @GetMapping("/form")
+    public String showform(Model model) {
+        model.addAttribute("menu", menu);
+        model.addAttribute("order", new Order());
+        return "form";
+    }
 
-        model.addAttribute("nombre", customer.getCustomerName());
-        model.addAttribute("tipo", customer.getTypeService());
-        model.addAttribute("dish", customer.getDishes());
-        return "page";
+    //Se guardará el pedido acá
+    @PostMapping("/save")
+    public String saveOrder(Order order, Model model) {
+        if (order.getDishes() == null || order.getDishes().isEmpty()) {
+            model.addAttribute("error", "Debe seleccionar al menos un plato");
+            model.addAttribute("menu", menu);
+            return "form";
+        }
+
+        int TotalTime = 0;
+        for(Dish d : order.getDishes()){
+            TotalTime += d.getPrepTime();
+        }
+        order.setTotalTime(TotalTime);
+
+        orders.add(order);
+        model.addAttribute("orders", orders);
+
+        return "form";
     }
 
 }
